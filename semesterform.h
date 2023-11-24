@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <mainwindow.h>
+#include <QStringListModel>
 
 namespace Ui {
 class semesterForm;
@@ -13,6 +14,7 @@ class semesterForm : public QWidget
     Q_OBJECT
 
 public:
+    QStringListModel *listViewModel;
     explicit semesterForm(QWidget *parent = nullptr);
 //    semesterForm(QWidget *parent = nullptr, Semester pSemester = Semester());
     ~semesterForm();
