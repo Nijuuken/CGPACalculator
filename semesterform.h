@@ -18,6 +18,8 @@ public:
     explicit semesterForm(QWidget *parent = nullptr);
 //    semesterForm(QWidget *parent = nullptr, Semester pSemester = Semester());
     ~semesterForm();
+    signals:
+        void courseAdded(const QString& courseName, double grade, int credits);
 
 private slots:
     void on_pushButtonCourseAdd_clicked();

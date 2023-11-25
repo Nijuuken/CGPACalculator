@@ -25,6 +25,8 @@ private slots:
 
     void on_tabWidgetSemester_currentChanged(int index);
 
+    void updateSemester(const QString& courseName, double grade, int credits);
+
 private:
     Ui::MainWindow *ui;
     std::vector<Semester> semesters;
