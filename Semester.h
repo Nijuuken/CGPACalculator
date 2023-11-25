@@ -23,6 +23,7 @@ public:
     void calculateSemesterTotalCredits();
     double getSemesterGradePoints();
     double getSemesterTotalCredits();
+    std::string getSemesterName();
 };
 
 #endif // SEMESTER_H

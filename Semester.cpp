@@ -39,3 +39,7 @@ double Semester::getSemesterTotalCredits()
 {
     return semesterTotalCredits;
 }
+
+std::string Semester::getSemesterName(){
+    return semester;
+}

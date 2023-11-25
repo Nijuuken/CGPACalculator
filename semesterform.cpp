@@ -59,7 +59,7 @@ void semesterForm::on_pushButtonCourseAdd_clicked()
         QMessageBox::warning(this, "Error", "Please enter a valid positive decimal for credits.");
         return; // Stop further execution if credits is invalid
     }
-
+    emit courseAdded(courseName, gpaValue, creditsValue);
     // Concatenate the information into a single string
     QString courseInfo = QString("%1 - GPA: %2 - Credits: %3").arg(courseName, GPA, credits);
 
