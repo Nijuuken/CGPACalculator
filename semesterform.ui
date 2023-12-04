@@ -18,6 +18,13 @@
     <widget class="QListView" name="listView"/>
    </item>
    <item>
+    <widget class="QLabel" name="label_Semester_GPA">
+     <property name="text">
+      <string>Semester GPA:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="labelCName">
