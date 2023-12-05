@@ -1,31 +1,34 @@
 #include "calculator.h"
 
-void Calculator::calculate()
+Calculator::Calculator()
 {
-    // Calculate cGpa = allSemesterGradePoints/allSemesterCreditAmount
+
 }
 
-void Calculator::reset()
+void Calculator::calculateCGPA(const std::vector<double>& semesterGPAs, const std::vector<double>& semesterCredits)
 {
-    // Resets the fields?
+    double totalGradePoints = 0.0;
+    double totalCredits = 0.0;
+
+    // Calculate the sum of grade points and credits from all semesters
+    for (size_t i = 0; i < semesterGPAs.size(); ++i)
+    {
+        totalGradePoints += semesterGPAs[i] * semesterCredits[i];
+        totalCredits += semesterCredits[i];
+    }
+
+    // Calculate CGPA
+    if (totalCredits > 0.0)
+    {
+        CGPA = totalGradePoints / totalCredits;
+    }
+    else
+    {
+        CGPA = 0.0;
+    }
 }
 
-void Calculator::displayGPA()
+double Calculator::getCGPA() const
 {
-    // Displays GPA
-}
-
-void Calculator::displayCGPA()
-{
-    // Displays CGPA
-}
-
-bool Calculator::checkOnlyIntegers(std::string)
-{
-    return false;
-}
-
-bool Calculator::checkOnlyIntegers(double)
-{
-    return true;
+    return CGPA;
 }

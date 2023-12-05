@@ -5,6 +5,8 @@
 #include <Semester.h>
 #include <vector>
 #include <iostream>
+#include <QMessageBox>
+#include "calculator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,5 +32,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     std::vector<Semester> semesters;
+    Calculator calculator;
 };
 #endif // MAINWINDOW_H

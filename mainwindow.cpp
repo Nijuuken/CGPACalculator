@@ -17,6 +17,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonAddSemester_clicked()
 {
+    // Check if lineEditSemesterAdd is not empty
+       if (ui->lineEditSemesterAdd->text().isEmpty()) {
+           QMessageBox::warning(this, "Error", "Please enter a semester name.");
+           return;  // Stop further execution if lineEditSemesterAdd is empty
+       }
     // Create a new semesterForm instance
     semesterForm* newSemesterForm = new semesterForm(this);
 
@@ -30,7 +35,8 @@ void MainWindow::on_pushButtonAddSemester_clicked()
     std::string semesterLineText = ui->lineEditSemesterAdd->text().toStdString();
     Semester newSemester(semesterLineText);
     semesters.push_back(newSemester);
-
+    // Clear the input field for the semester name
+    ui->lineEditSemesterAdd->clear();
     std::cout << "Current Number of Semesters in vector: " << semesters.size() << std::endl;
 }
 
@@ -57,6 +63,37 @@ void MainWindow::updateSemester(const QString& courseName, double grade, int cre
 
     // Call addSubject for the selected semester
     semesters[currentIndex].addSubject(courseNameStr, grade, credits);
-    std::cout << "Class: " << courseName.toStdString() << " has been added to semester " << semesters[currentIndex].getSemesterName() << std::endl;
 
+    // Update semesterGradePoints and semesterTotalCredits
+    semesters[currentIndex].calculateSemesterGradePoints();
+    semesters[currentIndex].calculateSemesterTotalCredits();
+
+    // Calculate GPA after updating semesterGradePoints and semesterTotalCredits
+    semesters[currentIndex].calculateGPA();
+
+    // Fetch the corresponding semesterForm
+    semesterForm* currentSemesterForm = qobject_cast<semesterForm*>(ui->tabWidgetSemester->widget(currentIndex));
+
+    if (currentSemesterForm) {
+        // Update GPA and display it in the corresponding semesterForm
+        double roundedGPA = round(semesters[currentIndex].getGPA() * 100.0) / 100.0;  // Round to the hundredth place
+        QString gpaText = QString("GPA: %1").arg(QString::number(roundedGPA, 'f', 2));
+        currentSemesterForm->setSemesterGPAText(gpaText);
+    }
+
+    // Assuming you want to update the CGPA whenever a new course is added
+    // You would need to collect the GPAs and credits for all semesters and call the Calculator
+    std::vector<double> semesterGPAs;
+    std::vector<double> semesterCredits;
+
+    for (const auto& semester : semesters) {
+        semesterGPAs.push_back(semester.getGPA());
+        semesterCredits.push_back(semester.getSemesterTotalCredits());
+    }
+
+    calculator.calculateCGPA(semesterGPAs, semesterCredits);
+    double cgpa = calculator.getCGPA();
+    cgpa = round(cgpa * 100.0) / 100.0;
+    ui->labelCGPA->setText(QString("CGPA: %1").arg(cgpa));
 }
+

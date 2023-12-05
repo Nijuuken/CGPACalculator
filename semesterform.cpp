@@ -13,6 +13,21 @@ semesterForm::semesterForm(QWidget *parent) :
     // Initialize the QStringListModel for the QListView
     listViewModel = new QStringListModel(this);
     ui->listView->setModel(listViewModel);
+    // Initialize the grade to GPA mapping
+    gradeToGPA = {
+        {"A", 4.0},
+        {"A-", 3.7},
+        {"B+", 3.3},
+        {"B", 3.0},
+        {"B-", 2.7},
+        {"C+", 2.3},
+        {"C", 2.0},
+        {"C-", 1.7},
+        {"D+", 1.3},
+        {"D", 1.0},
+        {"D-", 0.7},
+        {"F", 0.0}
+    };
 }
 
 //semesterForm::semesterForm(QWidget *parent, Semester pSemester) :
@@ -29,26 +44,30 @@ semesterForm::~semesterForm()
     delete ui;
 }
 
+void semesterForm::setSemesterGPAText(const QString& text)
+{
+    ui->label_Semester_GPA->setText(text);
+}
+
 void semesterForm::on_pushButtonCourseAdd_clicked()
 {
     // Extracting text from QLineEdit widgets
     QString courseName = ui->lineEditCourseName->text();
-    QString GPA = ui->lineEdit_2GPA->text();
+    QString letterGrade = ui->lineEdit_2GPA->text().toUpper(); // Convert to uppercase for case-insensitivity
     QString credits = ui->lineEdit_3Credits->text();
 
     // Check if all fields are properly filled
-    if (courseName.isEmpty() || GPA.isEmpty() || credits.isEmpty()) {
+    if (courseName.isEmpty() || letterGrade.isEmpty() || credits.isEmpty()) {
         QMessageBox::warning(this, "Error", "Please fill in all fields.");
         return; // Stop further execution if any field is empty
     }
 
-    // Check if GPA is a proper decimal between 0 and 4.0
-    bool gpaOk;
-    double gpaValue = GPA.toDouble(&gpaOk);
+    // With this block to convert letter grades to GPAs
+    double gpaValue = gradeToGPA.value(letterGrade, -1.0);
 
-    if (!gpaOk || gpaValue < 0.0 || gpaValue > 4.0) {
-        QMessageBox::warning(this, "Error", "Please enter a valid GPA between 0.0 and 4.0.");
-        return; // Stop further execution if GPA is invalid
+    if (gpaValue == -1.0) {
+        QMessageBox::warning(this, "Error", "Please enter a valid letter grade.");
+        return;
     }
 
     // Check if credits is a proper decimal
@@ -61,7 +80,7 @@ void semesterForm::on_pushButtonCourseAdd_clicked()
     }
     emit courseAdded(courseName, gpaValue, creditsValue);
     // Concatenate the information into a single string
-    QString courseInfo = QString("%1 - GPA: %2 - Credits: %3").arg(courseName, GPA, credits);
+    QString courseInfo = QString("%1 - Letter Grade: %2 - Credits: %3").arg(courseName, letterGrade, credits);
 
     // Update the data in the QStringListModel
     QStringList dataList = listViewModel->stringList();

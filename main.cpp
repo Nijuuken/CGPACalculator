@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "Semester.h"
-#include "calculator.h"
 #include <iostream>
 
 #include <QApplication>

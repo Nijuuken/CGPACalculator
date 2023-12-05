@@ -30,14 +30,23 @@ void Semester::calculateSemesterTotalCredits()
     }
 }
 
-double Semester::getSemesterGradePoints()
+void Semester::calculateGPA()
+{
+    GPA = semesterGradePoints/semesterTotalCredits;
+}
+
+double Semester::getSemesterGradePoints() const
 {
     return semesterGradePoints;
 }
 
-double Semester::getSemesterTotalCredits()
+double Semester::getSemesterTotalCredits() const
 {
     return semesterTotalCredits;
+}
+
+double Semester::getGPA() const{
+    return GPA;
 }
 
 std::string Semester::getSemesterName(){
