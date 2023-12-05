@@ -13,6 +13,7 @@ private:
     std::vector <CourseInfo> Courses;
     double semesterGradePoints;
     double semesterTotalCredits;
+    double GPA;
 
 public:
     Semester(){};
@@ -21,8 +22,10 @@ public:
 
     void calculateSemesterGradePoints();
     void calculateSemesterTotalCredits();
-    double getSemesterGradePoints();
-    double getSemesterTotalCredits();
+    void calculateGPA();
+    double getSemesterGradePoints() const;
+    double getSemesterTotalCredits() const;
+    double getGPA() const;
     std::string getSemesterName();
 };
 

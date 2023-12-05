@@ -15,8 +15,9 @@ class semesterForm : public QWidget
 
 public:
     QStringListModel *listViewModel;
+    void setSemesterGPAText(const QString& text);
     explicit semesterForm(QWidget *parent = nullptr);
-//    semesterForm(QWidget *parent = nullptr, Semester pSemester = Semester());
+//    semesterForm(QWidget *parent = nullptr,  pSemester = Semester());
     ~semesterForm();
     signals:
         void courseAdded(const QString& courseName, double grade, int credits);
@@ -26,7 +27,7 @@ private slots:
 
 private:
     Ui::semesterForm *ui;
-//    Semester semesterTab;
+    QMap<QString, double> gradeToGPA;
 };
 
 #endif // SEMESTERFORM_H

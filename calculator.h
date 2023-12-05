@@ -10,13 +10,9 @@ private:
     double CGPA;
 public:
     Calculator();; // Empty Constructor
-
-    void calculate();
+    void calculateCGPA(const std::vector<double>& semesterGPAs, const std::vector<double>& semesterCredits);
     void reset();
-    void displayGPA();
-    void displayCGPA();
-    bool checkOnlyIntegers(std::string);
-    bool checkOnlyIntegers(double);
+    double getCGPA() const;
 };
 
 #endif // CALCULATOR_H

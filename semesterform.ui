@@ -36,7 +36,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_2GPA">
        <property name="text">
-        <string>GPA</string>
+        <string>Letter Grade</string>
        </property>
       </widget>
      </item>
