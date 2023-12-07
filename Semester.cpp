@@ -8,6 +8,15 @@ void Semester::addSubject(std::string pCourseName, double pGrade, int pCredits)
     calculateSemesterTotalCredits();
 }
 
+void Semester::removeCourse(size_t index)
+{
+    // Check if the index is valid
+    if (index < Courses.size()) {
+        // Erase the course at the specified index
+        Courses.erase(Courses.begin() + index);
+    }
+}
+
 void Semester::calculateSemesterGradePoints()
 {
     semesterGradePoints = 0;

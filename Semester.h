@@ -23,6 +23,7 @@ public:
     void calculateSemesterGradePoints();
     void calculateSemesterTotalCredits();
     void calculateGPA();
+    void removeCourse(size_t index);
     double getSemesterGradePoints() const;
     double getSemesterTotalCredits() const;
     double getGPA() const;
