@@ -41,7 +41,13 @@ void Semester::calculateSemesterTotalCredits()
 
 void Semester::calculateGPA()
 {
-    GPA = semesterGradePoints/semesterTotalCredits;
+    if (semesterGradePoints != 0 && semesterTotalCredits != 0)
+    {
+        GPA = semesterGradePoints/semesterTotalCredits;
+    } else {
+        GPA = 0;
+    }
+
 }
 
 double Semester::getSemesterGradePoints() const
