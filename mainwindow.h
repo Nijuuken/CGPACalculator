@@ -27,7 +27,11 @@ private slots:
 
     void on_tabWidgetSemester_currentChanged(int index);
 
-    void updateSemester(const QString& courseName, double grade, int credits);
+    void updateCGPA();
+
+    void addCoursetoSemester(const QString& courseName, double grade, int credits);
+
+    void delCoursefromSemester(int rowIndex);
 
 private:
     Ui::MainWindow *ui;

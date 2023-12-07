@@ -15,6 +15,7 @@ semesterForm::semesterForm(QWidget *parent) :
     ui->listView->setModel(listViewModel);
     // Initialize the grade to GPA mapping
     gradeToGPA = {
+        {"A+", 4.0},
         {"A", 4.0},
         {"A-", 3.7},
         {"B+", 3.3},
@@ -91,4 +92,27 @@ void semesterForm::on_pushButtonCourseAdd_clicked()
     ui->lineEditCourseName->clear();
     ui->lineEdit_2GPA->clear();
     ui->lineEdit_3Credits->clear();
+}
+
+void semesterForm::on_pushButtonCourseDel_clicked()
+{
+    // Get the selected index from the QListView
+    QModelIndexList selectedIndexes = ui->listView->selectionModel()->selectedIndexes();
+
+    // Check if any item is selected
+    if (selectedIndexes.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please select a course to delete.");
+        return;
+    }
+
+    // Get the selected row
+    int selectedRow = selectedIndexes.first().row();
+
+    // Remove the course from the QStringListModel
+    QStringList dataList = listViewModel->stringList();
+    dataList.removeAt(selectedRow);
+    listViewModel->setStringList(dataList);
+
+    // Emit a signal to notify MainWindow about the course deletion
+    emit courseDeleted(selectedRow);
 }
